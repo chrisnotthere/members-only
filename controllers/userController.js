@@ -61,7 +61,8 @@ exports.user_create_post = [
             return next(err);
           }
           // Successful - redirect to home page
-          res.redirect('/');
+          let msg = `you have signed up as ${req.body.username}`;
+          res.render('index', { title: 'Members Only', msg, user });
         });
       }
     },
