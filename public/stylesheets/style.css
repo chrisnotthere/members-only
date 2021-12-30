@@ -5,3 +5,9 @@
 a {
   text-decoration: none;
 }
+
+.members-form {
+  width: 65%;
+  margin: auto;
+  padding: 1rem;
+}

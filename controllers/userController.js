@@ -13,24 +13,14 @@ exports.user_create_post = [
     // Validate and sanitize fields.
     body("username")
       .trim()
-      .isLength({ min: 1 })
+      .isLength({ min: 3, max:15 })
       .escape()
-      .withMessage("Name must be specified."),
+      .withMessage("Username must be between 3-15 characters long."),
     body("password")
       .trim()
-      .isLength({ min: 1 })
+      .isLength({ min: 6 })
       .escape()
-      .withMessage("Password must be specified."),
-    body("avatar")
-      .trim()
-      .isLength({ min: 1 })
-      .escape()
-      .withMessage("Avatar must be specified."),
-    body("status")
-      .trim()
-      .isLength({ min: 1 })
-      .escape()
-      .withMessage("Status must be specified."),
+      .withMessage("Password must be at least 6 characters long."),
   
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -54,7 +44,7 @@ exports.user_create_post = [
           username: req.body.username,
           password: req.body.password,
           avatar: req.body.avatar,
-          status: req.body.status,
+          status: 'basic',
         });
         user.save(function (err) {
           if (err) {

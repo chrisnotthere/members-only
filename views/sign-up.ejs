@@ -18,33 +18,52 @@
         <%- include('../views/partials/header.ejs') %>
     </header>
 
-    <div class="content">
-        <h3>please sign-up</h3>
-        <form action="/sign-up" method="POST">
-            <label for="username">Username</label>
-            <input name="username" placeholder="username" type="text" />
-            <label for="password">Password</label>
-            <input name="password" placeholder="password" type="text" />
-            <br>
-            <br>
-            <label for="avatar">Avatar</label>
-            <input name="avatar" placeholder="avatar" type="text" />
-            <label for="status">Status</label>
-            <input name="status" placeholder="status" type="text" />
-            <button>Sign Up</button>
-        </form>
+    <form class="members-form" action="/sign-up" method="POST">
+        <h3>Sign up to MembersOnly</h3>
+        <p>Already registered? <a href="/log-in">Log in</a></p>
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" aria-describedby="usernameHelp">
+            <div id="usernameHelp" class="form-text">Username must be between 3-15 characters long.</div>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelp">
+            <div id="passwordHelp" class="form-text">Password must be at least 6 characters long.</div>
+        </div>
+        <div class="mb-3">
+            <label for="passwordConfirmation" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="passwordConfirmation" name="passwordConfirmation">
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="avatar" id="avatar1" value="avatar1" checked>
+            <label class="form-check-label" for="avatar1">1</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="avatar" id="avatar2" value="avatar2">
+            <label class="form-check-label" for="avatar2">2</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="avatar" id="avatar3" value="avatar3">
+            <label class="form-check-label" for="avatar3">3</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="avatar" id="avatar4" value="avatar4">
+            <label class="form-check-label" for="avatar4">4</label>
+        </div>
 
+        <br>
         <% if (locals.errors) {%>
-            <h2>
-                <!-- <%= errors %> -->
-                <% locals.errors.forEach(function(err) { %>
+            <br>
+            <% locals.errors.forEach(function(err) { %>
+                <p style="color: darkred;">
                     <%= err.msg %>
                         <% }); %>
-            </h2>
-            <% } %>
-
-    </div>
-
+                </p>
+                <% } %>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 
 </body>
 
