@@ -22,6 +22,9 @@ exports.user_create_post = [
     .isLength({ min: 6 })
     .escape()
     .withMessage("Password must be at least 6 characters long."),
+  body("passwordConfirmation")
+    .custom((value, { req }) => value === req.body.password)
+    .withMessage("Passwords entered must match."),
 
   // Process request after validation and sanitization.
   (req, res, next) => {
