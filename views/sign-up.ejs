@@ -11,13 +11,28 @@
 
 <body>
     <h3>please sign-up</h3>
-    <form action="" method="POST">
+    <form action="/sign-up" method="POST">
         <label for="username">Username</label>
         <input name="username" placeholder="username" type="text" />
         <label for="password">Password</label>
-        <input name="password" type="password" />
+        <input name="password" placeholder="password" type="text" />
+        <br>
+        <br>
+        <label for="avatar">Avatar</label>
+        <input name="avatar" placeholder="avatar" type="text" />
+        <label for="status">Status</label>
+        <input name="status" placeholder="status" type="text" />
         <button>Sign Up</button>
     </form>
+
+    <% if (locals.errors) {%>
+        <h2>
+            <!-- <%= errors %> -->
+            <% locals.errors.forEach(function(err) { %>
+                <%= err.msg %>
+             <% }); %> 
+        </h2>
+        <% }  %>
 </body>
 
 </html>
