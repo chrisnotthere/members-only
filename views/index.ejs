@@ -22,12 +22,14 @@
     <p>Welcome to <%= title %>
     </p>
     <% if (locals.user) {%>
-      <h2>WELCOME <%= user.username %>
+      <h2>WELCOME <%= locals.user.username %>
       </h2>
       <a href="/log-out">LOG OUT</a>
       <% } else { %>
         locals.user does not exist
-        <%}%>
+      <%}%>
+    <br>
+
 
     <% if (locals.msg) {%>
       <p>
