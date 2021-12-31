@@ -14,6 +14,7 @@ router.get('/', login_controller.login_get);
 //it then creates a session cookie we can access to see if a user is logged in
 // TODO - import this from loginController
 router.post('/', function(req, res, next) {
+  
   passport.authenticate('local', function(err, user, info) {
     if (err) { return next(err); }
     if (!user) { 
@@ -23,6 +24,7 @@ router.post('/', function(req, res, next) {
     req.logIn(user, function(err) {
       if (err) { return next(err); }
       //success
+      res.locals.currentUser = req.user;
       return res.render('index', { title: 'You have successfully logged in!', user });
     });
   })(req, res, next);

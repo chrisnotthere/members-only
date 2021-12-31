@@ -55,7 +55,6 @@ passport.use(
   })
 );
 
-
 // save user.id in cookie/session
 passport.serializeUser(function (user, done) {
   console.log(`serialize user`);
@@ -70,6 +69,12 @@ passport.deserializeUser(function (id, done) {
   });
 });
 ////
+
+//this allows us to access current user from within our views
+app.use(function (req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -98,12 +103,6 @@ app.use(express.urlencoded({ extended: false }));
 app.get("/log-out", (req, res) => {
   req.logout();
   res.redirect("/");
-});
-
-//this allows us to access current user from within our views
-app.use(function (req, res, next) {
-  res.locals.currentUser = req.user;
-  next();
 });
 
 // catch 404 and forward to error handler
