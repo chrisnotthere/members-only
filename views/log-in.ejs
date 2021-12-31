@@ -18,17 +18,35 @@
     <%- include('../views/partials/header.ejs') %>
   </header>
 
-  <div class="content">
-    <h3>log into your account</h3>
-    <form action="" method="POST">
-      <label for="username">Username</label>
-      <input name="username" placeholder="username" type="text" />
-      <label for="password">Password</label>
-      <input name="password" type="password" />
-      <button>Log In</button>
-    </form>
-
-  </div>
+  <form class="members-form" action="/log-in" method="POST">
+    <h3>Log in to your account</h3>
+    <p>Not registered yet? <a href="/sign-up">Sign Up</a></p>
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" class="form-control" id="username" name="username">
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="password" name="password">
+    </div>
+    <br>
+    <% if (locals.errors) {%>
+      <br>
+      <% locals.errors.forEach(function(err) { %>
+        <p style="color: darkred;">
+          <%= err.msg %>
+            <% }); %>
+        </p>
+        <% } %>
+          <% if (locals.msg) {%>
+            <p style="color: darkred;">
+              <%=locals.msg %>
+            </p>
+            <br>
+          <%}%>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
 
 </body>
 
