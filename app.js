@@ -7,9 +7,8 @@ var logger = require('morgan');
 ////
 const session = require('express-session');
 const passport = require("passport");
-const bcrypt = require("bcryptjs");
-var User = require("./models/user");
-const LocalStrategy = require("passport-local").Strategy;
+const initializePassport = require('./config/passportConfig');
+initializePassport(passport);
 ////
 
 var indexRouter = require('./routes/index');
@@ -25,50 +24,6 @@ var mongoDB = process.env.MONGODB;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
-
-////
-//setting up LocalStrategy, this is called by passport.authenticate()
-passport.use(
-  new LocalStrategy((username, password, done) => {
-    User.findOne({ username: username }, (err, user) => {
-      if (err) {
-        console.log('--there was an error--');
-        return done(err);
-      }
-      if (!user) {
-        console.log('--incorrect username--');
-        return done(null, false, { msg: "Incorrect username" });
-      }
-      bcrypt.compare(password, user.password, (err, res) => {
-        if (res) {
-          // passwords match! log user in
-          console.log('--passwords match!--');
-          return done(null, user);
-        } else {
-          // passwords do not match!
-          console.log('--passwords do not match!--');
-          return done(null, false, { msg: "Incorrect password" });
-          //res.render('log-in', { title: 'Log in to your MembersOnly account.', msg: 'Incorrect password' });
-        }
-      });
-    });
-  })
-);
-
-// save user.id in cookie/session
-passport.serializeUser(function (user, done) {
-  console.log(`serialize user`);
-  done(null, user.id);
-});
-
-// user.id is used to find the user
-passport.deserializeUser(function (id, done) {
-  User.findById(id, function (err, user) {
-    console.log(`deserialize user`);
-    done(err, user);
-  });
-});
-////
 
 //this allows us to access current user from within our views
 app.use(function (req, res, next) {
