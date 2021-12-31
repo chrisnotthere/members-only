@@ -57,6 +57,7 @@ exports.user_create_post = [
           }
           //Successful - redirect to home page
           let msg = `you have signed up as ${req.body.username}`;
+          //res.redirect('/index', { title: 'Members Only', msg, user });
           res.render('index', { title: 'Members Only', msg, user });
         });
       });
