@@ -17,4 +17,12 @@ a {
 .msg-card {
   /* color: red; */
   margin: 0 auto;
+  position: relative;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0.5rem 0.5rem 0 0;
 }

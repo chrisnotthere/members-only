@@ -47,21 +47,28 @@
     <!-- show the all messages in the DB -->
     <%if (message_list) {%>
       <%for (var message in message_list){%>
-        <!-- <li><%=message%>:<%=message_list[message]%></li>     -->
         <div class="msg-card card mb-3" style="max-width: 540px;">
           <div class="row g-0">
             <div class="col-md-4">
-              <img src="..." class="img-fluid rounded-start" alt="<%=message_list[message].user.avatar%>">
+              <img src="..." class="img-fluid rounded-start" alt="<%=locals.currentUser ? message_list[message].user.avatar : 'Anon.jpg' %>">
             </div>
             <div class="col-md-8">
               <div class="card-body">
                 <h5 class="card-title"><%=message_list[message].msgTitle%></h5>
                 <p class="card-text"><%=message_list[message].text%></p>
-                <p class="card-text"><small class="text-muted">Posted by: <%=message_list[message].user.username%></small></p>
+                <p class="card-text"><small class="text-muted">Posted by: <%=locals.currentUser ? message_list[message].user.username : "Anonymous" %></small></p>
                 <p class="card-text"><small class="text-muted"><%=message_list[message].timestamp%></small></p>
               </div>
             </div>
           </div>
+          <% if (locals.currentUser) {%>
+            <a href="/delete">
+              <button class="delete-btn btn btn-outline-danger" type="button">
+                <i class="bi bi-trash"></i> Delete Post
+              </button>
+            </a> 
+          <%}%>
+
         </div>
       <%}%>
     <%}%>
