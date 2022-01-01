@@ -21,30 +21,17 @@
   <div class="content">
     <p>Welcome to <%= title %>
     </p>
-    <% if (locals.user) {%>
-      <h2>WELCOME <%= locals.user %>
-      </h2>
-      <a href="/log-out">LOG OUT</a>
-      <% } else { %>
-        locals.user does not exist
-      <%}%>
-    <br>
     <% if (locals.currentUser) {%>
-      <h2>WELCOME <%= locals.currentUser.username %>
+      <h2>WELCOME <%= locals.currentUser %>
       </h2>
+      <p>
+        <%= locals.currentUser._id %>
+      </p>
       <a href="/log-out">LOG OUT</a>
       <% } else { %>
         locals.currentUser does not exist
       <%}%>
     <br>
-    <% if (user) {%>
-      <h2>WELCOME <%= user.username %>
-      </h2>
-      <a href="/log-out">LOG OUT</a>
-      <% } else { %>
-        user does not exist
-      <%}%>
-
     <% if (locals.msg) {%>
       <p>
         <%=locals.msg %>

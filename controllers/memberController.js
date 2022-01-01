@@ -1,5 +1,5 @@
-//var User = require("../models/user");
-const bcrypt = require("bcryptjs");
+var User = require("../models/user");
+//const bcrypt = require("bcryptjs");
 
 const { body, validationResult } = require("express-validator");
 
@@ -31,11 +31,40 @@ exports.member_post = [
             return;
         } else {
             console.log(req.body);
-            if (req.body.password === 'topsecret') {
+            if (req.body.password === process.env.MEMBER_SIGNUP) {
                 //res.send('success! correct password');
                 let msg = `Congratulations! You are now an exclusive member. You are now able to post messages.`;
+                app.locals.currentUser.username.toString = function () { return JSON.stringify(this); };
+                app.locals.currentUser._id.toString = function () { return JSON.stringify(this); };
+
+                console.log(`username -- ${app.locals.currentUser.username}`);
+                console.log(`_id -- ${app.locals.currentUser._id}`);
+
                 //TODO update user status to 'member
-                res.render('index', { title: 'Members Only', msg });
+                var user = new User({
+                    username: app.locals.currentUser.username,
+                    password: app.locals.currentUser.password,
+                    avatar: app.locals.currentUser.avatar,
+                    status: 'member',
+                    _id: app.locals.currentUser._id,
+                    //id: app.locals.username._id
+                })
+                // Update user record
+                User.findByIdAndUpdate(
+                    app.locals.currentUser._id,
+                    user,
+                    {},
+                    function (err) {
+                        if (err) {
+                            return next(err);
+                        }
+                        // Successful!
+                        res.redirect('/');
+                        //res.render('index', { title: 'Members Only', msg });
+                    }
+                );
+                //res.render('index', { title: 'Members Only', msg });
+
             } else {
                 //res.send('Wrong! try again!!');
                 let msg = `Incorrect password.`;
