@@ -13,21 +13,55 @@ router.get('/', login_controller.login_get);
 //passport looks at request body for username and password and runs LocalStrategy to search db
 //it then creates a session cookie we can access to see if a user is logged in
 // TODO - import this from loginController
-router.post('/', function(req, res, next) {
+// router.post('/', function(req, res, next) {
   
-  passport.authenticate('local', function(err, user, info) {
-    if (err) { return next(err); }
-    if (!user) { 
-      return res.render('log-in', { title: 'Log in to your MembersOnly account.', msg: 'Username or Password incorrect.' });
-    }
-    //login user
-    req.logIn(user, function(err) {
-      if (err) { return next(err); }
-      //success
-      res.locals.currentUser = req.user;
-      return res.render('index', { title: 'You have successfully logged in!', user });
-    });
-  })(req, res, next);
-});
+//   passport.authenticate('local', function(err, user, info) {
+//     if (err) { return next(err); }
+//     if (!user) { 
+//       //username/password not found
+//       return res.render('log-in', { title: 'Log in to your MembersOnly account.', msg: 'Username or Password incorrecta.' });
+//     }
+//     //login user
+//     req.logIn(user, function(err) {
+//       if (err) { return next(err); }
+//       //success
+//       console.log('---login success---');
+//       res.locals.currentUser = req.user;
+//       return res.render('index', { title: 'logged in!', user: req.user });
+//     });
+//   })(req, res, next);
+
+//   // passport.authenticate('local', {
+//   //   successRedirect: '/',
+//   //   failureRedirect: '/log-in',
+//   //   //failureMessage: 'something went wrong!',
+//   // })(req, res, next);
+
+// });
+
+router.post('/', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/log-in',
+    //failureMessage: 'something went wrong!',
+  }));
+
+// router.post('/', passport.authenticate('local', function(err, user, info) {
+//     if (err) { return next(err); }
+//     if (!user) { 
+//       //username/password not found
+//       return res.render('log-in', { title: 'Log in to your MembersOnly account.', msg: 'Username or Password incorrecta.' });
+//     }
+//     //login user
+//     req.logIn(user, function(err) {
+//       if (err) { return next(err); }
+//       //success
+//       console.log('---login success---');
+//       res.locals.currentUser = req.user;
+//       return res.render('index', { title: 'logged in!', user: req.user });
+//     });
+//   }))
+//   //(req, res, next);
+
+
 
 module.exports = router;

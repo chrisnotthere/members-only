@@ -8,15 +8,7 @@ var logger = require('morgan');
 const session = require('express-session');
 const passport = require("passport");
 const initializePassport = require('./config/passportConfig');
-initializePassport(passport);
 ////
-
-var indexRouter = require('./routes/index');
-var signupRouter = require('./routes/sign-up');
-var loginRouter = require('./routes/log-in');
-var memberRouter = require('./routes/member');
-
-app = express();
 
 //Set up mongoose connection
 var mongoose = require("mongoose");
@@ -25,11 +17,12 @@ mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-//this allows us to access current user from within our views
-app.use(function (req, res, next) {
-  res.locals.currentUser = req.user;
-  next();
-});
+var indexRouter = require('./routes/index');
+var signupRouter = require('./routes/sign-up');
+var loginRouter = require('./routes/log-in');
+var memberRouter = require('./routes/member');
+
+app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,19 +34,26 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+initializePassport(passport);
+
+////from auth basics
+app.use(express.urlencoded({ extended: false }));
+app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));
+app.use(passport.initialize());
+app.use(passport.session());
+////
+
+////this allows us to access current user from within our views
+app.use(function (req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
+
 // setting routes
 app.use('/', indexRouter);
 app.use('/sign-up', signupRouter);
 app.use('/log-in', loginRouter);
 app.use('/member', memberRouter);
-
-////from auth basics
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(express.urlencoded({ extended: false }));
-////
-
 // TODO set this in /routes
 app.get("/log-out", (req, res) => {
   req.logout();
