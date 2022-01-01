@@ -13,51 +13,34 @@
                 </li>
             </ul>
             <form class="d-flex">
-                <a href="/log-in">
-                    <button class="btn btn-outline-warning" type="button">
-                        <i class="bi bi-box-arrow-in-right"></i> Login
-                    </button>
-                </a>
-                <a href="/sign-up">
-                    <button class="btn btn-outline-warning" type="button">
-                        <i class="bi bi-person-plus-fill"></i> Signup
-                    </button>
-                </a>
-                <!-- <a href="/member">
-                    <button class="btn btn-outline-warning" type="button">
-                        <i class="bi bi-heart-half"></i> Become a member
-                    </button>
-                </a>
-                <a href="/admin">
-                    <button class="btn btn-outline-warning" type="button">
-                        <i class="bi bi-heart-fill"></i> Become an admin
-                    </button>
-                </a> -->
-                <!-- <% if (locals.user) {%>
-                    <a href="/member">
-                        <button class="btn btn-outline-warning" type="button">
-                            <i class="bi bi-heart-half"></i> Become a member
-                        </button>
-                    </a>
-                    <a href="/admin">
-                        <button class="btn btn-outline-warning" type="button">
-                            <i class="bi bi-heart-fill"></i> Become an admin
-                        </button>
-                    </a>
-                <% } %> -->
                 <% if (locals.currentUser) {%>
                     <a href="/member">
                         <button class="btn btn-outline-warning" type="button">
-                            <i class="bi bi-heart-half"></i> Become a member
+                            <i class="bi bi-heart-half"></i> Become Member
                         </button>
                     </a>
                     <a href="/admin">
                         <button class="btn btn-outline-warning" type="button">
-                            <i class="bi bi-heart-fill"></i> Become an admin
+                            <i class="bi bi-heart-fill"></i> Become Admin
+                        </button>
+                    </a>
+                    <a href="/message">
+                        <button class="btn btn-outline-warning" type="button">
+                            <i class="bi bi-envelope"></i> Create Message
+                        </button>
+                    </a>
+                <% } else { %>
+                    <a href="/log-in">
+                        <button class="btn btn-outline-warning" type="button">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </button>
+                    </a>
+                    <a href="/sign-up">
+                        <button class="btn btn-outline-warning" type="button">
+                            <i class="bi bi-person-plus-fill"></i> Signup
                         </button>
                     </a>
                 <% } %>
-                
             </form>
         </div>
     </div>
