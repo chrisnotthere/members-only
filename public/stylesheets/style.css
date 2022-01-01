@@ -2,6 +2,10 @@
   padding: 2rem;
 }
 
+body {
+  padding-top: 4rem;
+}
+
 a {
   text-decoration: none;
 }
