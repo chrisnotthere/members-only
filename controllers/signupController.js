@@ -6,7 +6,7 @@ const { body, validationResult } = require("express-validator");
 
 // Display user create form on GET.
 exports.user_create_get = function (req, res, next) {
-  res.render('sign-up', { title: 'Create an new new account', error: false });
+  res.render('sign-up', { title: 'Create an new new account' });
 };
 
 // Handle user create on POST.
@@ -58,7 +58,7 @@ exports.user_create_post = [
           //Successful - redirect to home page
           let msg = `You have successfully created your account. Please Login to continue.`;
           //res.redirect('/index', { title: 'Members Only', msg, user });
-          res.render('index', { title: 'Members Only', msg, user });
+          res.render('index', { title: 'Members Only', msg });
         });
       });
     }
