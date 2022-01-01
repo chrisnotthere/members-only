@@ -19,24 +19,20 @@
   </header>
 
   <div class="content">
-    <p><%= title %>
-    </p>
+    <p><%= title %></p>
+    <!-- welcome message -->
     <% if (locals.currentUser) {%>
-      <h2>WELCOME <%= locals.currentUser %>
-      </h2>
-      <p>You are now logged in.</p>
-      <p>
-        <%= locals.currentUser._id %>
-      </p>
+      <h2>WELCOME <%= locals.currentUser %></h2>
+      <p>You are now logged in as (locals.currentUser._id)</p>
+
       <a href="/log-out">LOG OUT</a>
       <% } else { %>
         The user is not logged in. This is the 'basic' homepage.
       <%}%>
+    <!-- display any messages and/or errors -->
     <br>
     <% if (locals.msg) {%>
-      <p>
-        <%=locals.msg %>
-      </p>
+      <p><%=locals.msg %></p>
     <%}%>
 
     <% if (locals.errors) {%>
@@ -47,6 +43,31 @@
                   <% }); %>
           </p>
           <% } %>
+
+    <!-- show the all messages in the DB -->
+    <%if (message_list) {%>
+      <%for (var message in message_list){%>
+        <!-- <li><%=message%>:<%=message_list[message]%></li>     -->
+        <div class="msg-card card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="..." class="img-fluid rounded-start" alt="<%=message_list[message].user.avatar%>">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><%=message_list[message].msgTitle%></h5>
+                <p class="card-text"><%=message_list[message].text%></p>
+                <p class="card-text"><small class="text-muted">Posted by: <%=message_list[message].user.username%></small></p>
+                <p class="card-text"><small class="text-muted"><%=message_list[message].timestamp%></small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <%}%>
+    <%}%>
+
+
+
   </div>
 
 </body>
