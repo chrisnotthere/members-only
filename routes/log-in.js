@@ -17,25 +17,20 @@ router.post('/', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) { return next(err); }
     if (!user) { 
-      //username/password not found
-      return res.render('log-in', { title: 'Log in to your MembersOnly account.', msg: 'Username or Password incorrecta.' });
+      //username/password combo not found
+      return res.render('log-in', { title: 'Log in to your MembersOnly account.', msg: 'Username or Password incorrect.' });
     }
     //login user
     req.logIn(user, function(err) {
       if (err) { return next(err); }
       //success
       console.log('---login success---');
-      res.locals.currentUser = req.user;
-      app.locals.currentUser = req.user;  //save the user to app.locals, this can be accessed from anywhere in the app
-      return res.render('index', { title: 'logged in!', user: req.user });
+      //save the user to app.locals, this can be accessed from anywhere in the app
+      app.locals.currentUser = req.user;  
+      return res.redirect('/')
+      //return res.render('index', { title: 'logged in!' });
     });
   })(req, res, next);
 });
-
-// router.post('/', passport.authenticate('local', {
-//     successRedirect: '/',
-//     failureRedirect: '/log-in',
-//     //failureMessage: 'something went wrong!',
-//   }));
 
 module.exports = router;

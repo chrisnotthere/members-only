@@ -19,17 +19,18 @@
   </header>
 
   <div class="content">
-    <p>Welcome to <%= title %>
+    <p><%= title %>
     </p>
     <% if (locals.currentUser) {%>
       <h2>WELCOME <%= locals.currentUser %>
       </h2>
+      <p>You are now logged in.</p>
       <p>
         <%= locals.currentUser._id %>
       </p>
       <a href="/log-out">LOG OUT</a>
       <% } else { %>
-        locals.currentUser does not exist
+        The user is not logged in. This is the 'basic' homepage.
       <%}%>
     <br>
     <% if (locals.msg) {%>

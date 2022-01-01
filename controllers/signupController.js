@@ -56,7 +56,7 @@ exports.user_create_post = [
             return next(err);
           }
           //Successful - redirect to home page
-          let msg = `you have signed up as ${req.body.username}`;
+          let msg = `You have successfully created your account. Please Login to continue.`;
           //res.redirect('/index', { title: 'Members Only', msg, user });
           res.render('index', { title: 'Members Only', msg, user });
         });
