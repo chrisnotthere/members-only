@@ -18,31 +18,34 @@
         <%- include('../views/partials/header.ejs') %>
     </header>
 
-    <form class="members-form" action="/member" method="POST">
-        <h3>Become a member of MembersOnly</h3>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelp">
-            <div id="passwordHelp" class="form-text">hint: topsecret</div>
-        <br>
-        <% if (locals.errors) {%>
-            <br>
-            <% locals.errors.forEach(function(err) { %>
-                <p style="color: darkred;">
-                    <%= err.msg %>
-                        <% }); %>
-                </p>
-                <% } %>
+    <% if (locals.currentUser.status=='member' ) {%>
+        <p>You are already a member.</p>
+    <%} else {%>
+        <form class="members-form" action="/member" method="POST">
+            <h3>Become a member of MembersOnly</h3>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelp">
+                <div id="passwordHelp" class="form-text">hint: topsecret</div>
+                <br>
+                <% if (locals.errors) {%>
+                    <br>
+                    <% locals.errors.forEach(function(err) { %>
+                        <p style="color: darkred;">
+                            <%= err.msg %>
+                                <% }); %>
+                        </p>
+                    <% } %>
                     <br>
                     <% if (locals.msg) {%>
                         <p style="color: darkred;">
-                          <%=locals.msg %>
+                            <%=locals.msg %>
                         </p>
                         <br>
                     <%}%>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    <% } %>
 </body>
 
 </html>

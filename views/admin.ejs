@@ -18,7 +18,10 @@
         <%- include('../views/partials/header.ejs') %>
     </header>
 
-    <form class="members-form" action="/admin" method="POST">
+    <% if (locals.currentUser.admin == true) {%>
+      <p>You are already an admin.</p>
+    <%} else {%>
+      <form class="members-form" action="/admin" method="POST">
         <!-- <h3>Become an admin of MembersOnly</h3> -->
         <h3><%= title %></h3>
         <div class="mb-3">
@@ -40,9 +43,10 @@
                           <%=locals.msg %>
                         </p>
                         <br>
-                    <%}%>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+                <%}%>
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    <% } %>
 
 </body>
 
