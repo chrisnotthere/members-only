@@ -23,6 +23,7 @@ var loginRouter = require('./routes/log-in');
 var memberRouter = require('./routes/member');
 var adminRouter = require('./routes/admin');
 var messageRouter = require('./routes/message');
+var deleteRouter = require('./routes/delete');
 
 app = express();
 
@@ -58,6 +59,7 @@ app.use('/log-in', loginRouter);
 app.use('/member', memberRouter);
 app.use('/admin', adminRouter);
 app.use('/message', messageRouter);
+app.use('/delete', deleteRouter);
 // TODO set this in /routes
 app.get("/log-out", (req, res) => {
   req.logout();

@@ -18,7 +18,7 @@
         <%- include('../views/partials/header.ejs') %>
     </header>
 
-    <% if (locals.currentUser.status=='member' ) {%>
+    <% if (locals.currentUser && locals.currentUser.status=='member' ) {%>
         <p>You are already a member.</p>
     <%} else {%>
         <form class="members-form" action="/member" method="POST">
