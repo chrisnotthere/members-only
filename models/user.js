@@ -7,6 +7,7 @@ var UserSchema = new Schema({
     password: { type: String, required: true, minLength: 6 },
     avatar: { type: String, required: true },
     status: { type: String, required: true },
+    admin: { type: Boolean, default: false },
 });
 
 //Export model

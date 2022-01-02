@@ -51,6 +51,7 @@ exports.user_create_post = [
           password: hashedPassword,
           avatar: req.body.avatar,
           status: 'basic',
+          admin: false,
         }).save((err) => {
           if (err) {
             return next(err);
