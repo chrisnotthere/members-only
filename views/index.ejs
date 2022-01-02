@@ -29,7 +29,7 @@
       <% } else { %>
         The user is not logged in. This is the 'basic' homepage.
       <%}%>
-      
+
     <!-- display any messages and/or errors -->
     <br>
     <% if (locals.msg) {%>
@@ -61,10 +61,10 @@
               </div>
             </div>
           </div>
-          <% if (locals.currentUser) {%>
+          <% if (locals.currentUser && locals.currentUser.admin == true) {%>
             <a href="/delete">
               <button class="delete-btn btn btn-outline-danger" type="button">
-                <i class="bi bi-trash"></i> Delete Post
+                <i class="bi bi-trash"></i> Delete Message
               </button>
             </a> 
           <%}%>
