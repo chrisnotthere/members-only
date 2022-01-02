@@ -21,6 +21,7 @@ var indexRouter = require('./routes/index');
 var signupRouter = require('./routes/sign-up');
 var loginRouter = require('./routes/log-in');
 var memberRouter = require('./routes/member');
+var adminRouter = require('./routes/admin');
 var messageRouter = require('./routes/message');
 
 app = express();
@@ -55,6 +56,7 @@ app.use('/', indexRouter);
 app.use('/sign-up', signupRouter);
 app.use('/log-in', loginRouter);
 app.use('/member', memberRouter);
+app.use('/admin', adminRouter);
 app.use('/message', messageRouter);
 // TODO set this in /routes
 app.get("/log-out", (req, res) => {

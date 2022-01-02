@@ -29,12 +29,12 @@
       <% } else { %>
         The user is not logged in. This is the 'basic' homepage.
       <%}%>
+      
     <!-- display any messages and/or errors -->
     <br>
     <% if (locals.msg) {%>
       <p><%=locals.msg %></p>
     <%}%>
-
     <% if (locals.errors) {%>
       <br>
       <% locals.errors.forEach(function(err) { %>
@@ -45,7 +45,7 @@
           <% } %>
 
     <!-- show the all messages in the DB -->
-    <%if (message_list) {%>
+    <% if( typeof(message_list) !=="undefined") {%>
       <%for (var message in message_list){%>
         <div class="msg-card card mb-3" style="max-width: 540px;">
           <div class="row g-0">
