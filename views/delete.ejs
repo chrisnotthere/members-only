@@ -19,7 +19,24 @@
     </header>
 
     <% if (locals.currentUser && locals.currentUser.admin==true ) {%>
-      <form class="members-form" action="/delete" method="POST">
+
+      <div class="msg-card card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="..." class="img-fluid rounded-start" alt="<%=locals.currentUser ? results.user.avatar : 'Anon.jpg' %>">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><%=results.msgTitle%></h5>
+              <p class="card-text"><%=results.text%></p>
+              <p class="card-text"><small class="text-muted">Posted by: <%=locals.currentUser ? results.user.username : "Anonymous" %></small></p>
+              <p class="card-text"><small class="text-muted"><%=results.timestamp%></small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form class="members-form" action=<%=results.url%> method="POST">
         <h3>Are you sure you want to delete this message?</h3>
         <div class="mb-3">
         <button type="submit" class="btn btn-primary" name="delete" value="yes">Yes</button>

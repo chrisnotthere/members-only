@@ -9,5 +9,10 @@ var MessageSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
+// Virtual for delete message URL
+MessageSchema.virtual("url").get(function () {
+    return "/delete/" + this._id;
+  });
+
 //Export model
 module.exports = mongoose.model("Message", MessageSchema);

@@ -22,8 +22,7 @@
     <p><%= title %></p>
     <!-- welcome message -->
     <% if (locals.currentUser) {%>
-      <h2>WELCOME <%= locals.currentUser %></h2>
-      <p>You are now logged in as (locals.currentUser._id)</p>
+      <h2>WELCOME <%= locals.currentUser.username %></h2>
 
       <a href="/log-out">LOG OUT</a>
       <% } else { %>
@@ -62,7 +61,7 @@
             </div>
           </div>
           <% if (locals.currentUser && locals.currentUser.admin == true) {%>
-            <a href="/delete">
+            <a href=<%=message_list[message].url%>>
               <button class="delete-btn btn btn-outline-danger" type="button">
                 <i class="bi bi-trash"></i> Delete Message
               </button>
